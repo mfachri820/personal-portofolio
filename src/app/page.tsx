@@ -73,7 +73,7 @@ export default function Home() {
         {/* ── Hero Section ── */}
          <section id="hero-section" className="relative overflow-clip min-h-[130vh] -mt-20 pt-20">
           {/* ── Hero Image - Lower (Foremost) ── */}
-          <div className="absolute inset-0 z-40 overflow-hidden [contain:paint]">
+          <div className="absolute inset-0 z-40 overflow-hidden [contain:paint]  pointer-events-none">
             <div ref={heroLowerRef} className="absolute inset-0">
               <Image
                 src="/images/hero/lower.webp"
@@ -84,11 +84,11 @@ export default function Home() {
                 priority
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-cream to-75%" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-cream to-75% pointer-events-none"  />
           </div>
 
           {/* ── Hero Image - Middle (mountain) ── */}
-          <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden [contain:paint]">
+          <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden [contain:paint] pointer-events-none">
             <div ref={heroMiddleRef} className="absolute inset-0">
               <Image
                 src="/images/hero/middle.webp"
@@ -102,7 +102,7 @@ export default function Home() {
           </div>
 
           {/* ── Hero Image - Upper (Sky) ── */}
-          <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden [contain:paint]">
+          <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden [contain:paint] pointer-events-none">
             <div ref={heroUpperRef} className="absolute inset-0">
               <Image
                 src="/images/hero/upper.webp"
@@ -116,24 +116,27 @@ export default function Home() {
           </div>
 
           {/* ── Hero content ── */}
-          <div className="relative max-w-7xl mx-auto px-6 z-30 lg:px-12 lg:pt-36 lg:pb-12">
+          <div className="relative max-w-7xl mx-auto px-6 z-31 lg:px-12 lg:pt-36 lg:pb-12">
             <div className="max-w-3xl">
-              <p className="text-sm uppercase tracking-[0.3em] text-gold font-semibold mb-6">
+              <p className="text-sm uppercase tracking-[0.3em] text-white/80 font-semibold mb-6">
                 AI & Full-Stack Developer
               </p>
-              <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl lg:text-8xl font-bold text-navy leading-[1.05] mb-8">
-                Muhammad
-                <br />
-                <span className="text-navy-muted italic">Fachri.</span>
+              <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] mb-8 lg:whitespace-nowrap">
+                Muhammad Fachri
               </h1>
-              <p className="text-lg md:text-xl text-warm-gray max-w-xl leading-relaxed mb-10">
-                Third-year Informatics student at Universitas Padjadjaran, passionate about 
-                AI, data-driven solutions, and building impactful digital experiences.
-              </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="max-w-xl relative">
+                {/* Scrim: solid dark rounded panel behind the text */}
+                <div className="absolute -inset-x-4 -inset-y-3 bg-navy/30 rounded-xl -z-10" />
+                
+                <p className="text-lg md:text-xl text-white max-w-xl leading-relaxed mb-10 relative">
+                  Third-year Informatics student at Universitas Padjadjaran, passionate about 
+                  AI, data-driven solutions, and building impactful digital experiences.
+                </p>
+              </div>
+              <div className="flex z-31 flex-wrap gap-4">
                 <Link
                   href="/projects"
-                  className="inline-flex items-center gap-2 bg-navy text-cream px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:bg-navy-light transition-colors duration-300"
+                  className="inline-flex z-31 items-center gap-2 bg-navy text-cream px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:bg-navy-light transition-colors duration-300"
                 >
                   View Projects
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,7 +145,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 border-2 border-navy/20 text-navy px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:border-navy/50 transition-colors duration-300"
+                  className="inline-flex z-31 items-center gap-2 border-2 border-navy/20 text-navy px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:border-navy/50 transition-colors duration-300"
                 >
                   Get in Touch
                 </Link>
