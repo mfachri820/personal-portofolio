@@ -108,9 +108,9 @@ export default function Projects() {
         <section className="relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sand/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
           <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-16 lg:pt-36 lg:pb-24">
-            <p className="text-sm uppercase tracking-[0.3em] text-gold font-semibold mb-3">
-              Portfolio
-            </p>
+            <div className="flex items-center gap-4 mb-3">
+              <span className="w-24 h-[2px] bg-gold" />
+            </div>  
             <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl font-bold text-navy leading-tight mb-6">
               Selected
               <br />
@@ -118,7 +118,7 @@ export default function Projects() {
             </h1>
             <p className="text-lg text-warm-gray max-w-2xl leading-relaxed">
               A selection of projects spanning AI research, machine learning, frontend development, 
-              and data science — each built with curiosity and technical rigor.
+              and data science.
             </p>
           </div>
         </section>

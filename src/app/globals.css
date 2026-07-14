@@ -66,12 +66,39 @@ body {
   to   { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes float-delay {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.7s ease-out forwards;
 }
 
 .animate-slide-in-left {
   animation: slideInLeft 0.7s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float-delay 5s ease-in-out infinite 0.5s;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite 1s;
 }
 
 /* ── Elegant underline hover effect ── */

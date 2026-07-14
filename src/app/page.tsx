@@ -116,11 +116,8 @@ export default function Home() {
           </div>
 
           {/* ── Hero content ── */}
-          <div className="relative max-w-7xl mx-auto px-6 z-31 lg:px-12 lg:pt-36 lg:pb-12">
+          <div className="relative max-w-7xl mx-auto px-6 z-31 lg:px-12 lg:pt-48 lg:pb-12">
             <div className="max-w-3xl">
-              <p className="text-sm uppercase tracking-[0.3em] text-white/80 font-semibold mb-6">
-                AI & Full-Stack Developer
-              </p>
               <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] mb-8 lg:whitespace-nowrap">
                 Muhammad Fachri
               </h1>
