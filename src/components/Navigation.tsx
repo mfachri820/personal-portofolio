@@ -2,11 +2,41 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isHeroVisible, setIsHeroVisible] = useState(pathname === '/');
+
+  useEffect(() => {
+    if (pathname !== '/') {
+      setIsHeroVisible(false);
+      return;
+    }
+
+    const heroSection = document.getElementById('hero-section');
+
+    if (!heroSection) {
+      setIsHeroVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(heroSection);
+
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  const transparentNav = pathname === '/' && isHeroVisible;
 
   const links = [
     { href: '/', label: 'Home' },
@@ -16,12 +46,22 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="bg-cream/80 backdrop-blur-md border-b border-sand sticky top-0 z-50">
+    <nav
+      className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+        transparentNav
+          ? 'border-transparent bg-transparent'
+          : 'border-sand bg-cream/80 backdrop-blur-md'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex justify-between items-center h-20">
           {/* Logo / Brand */}
           <Link href="/" className="group flex items-center gap-2">
-            <span className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-navy tracking-tight">
+            <span
+              className={`font-[family-name:var(--font-playfair)] text-2xl font-bold tracking-tight transition-colors duration-300 ${
+                transparentNav ? 'text-cream' : 'text-navy'
+              }`}
+            >
               Fachri
             </span>
             <span className="w-2 h-2 rounded-full bg-gold group-hover:scale-125 transition-transform duration-300" />
@@ -39,7 +79,9 @@ export default function Navigation() {
                     relative px-5 py-2 text-sm font-medium tracking-wide rounded-full transition-all duration-300
                     ${isActive
                       ? 'bg-navy text-cream'
-                      : 'text-navy-muted hover:text-navy hover:bg-sand/60'
+                      : transparentNav
+                        ? 'text-cream/90 hover:text-cream hover:bg-cream/10'
+                        : 'text-navy-muted hover:text-navy hover:bg-sand/60'
                     }
                   `}
                 >
@@ -55,19 +97,21 @@ export default function Navigation() {
           {/* Mobile Hamburger */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-sand/50 transition-colors"
+            className={`md:hidden flex flex-col gap-1.5 p-2 rounded-lg transition-colors ${
+              transparentNav ? 'hover:bg-cream/10' : 'hover:bg-sand/50'
+            }`}
             aria-label="Toggle menu"
           >
-            <span className={`block w-6 h-0.5 bg-navy transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-navy transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-navy transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <span className={`block w-6 h-0.5 transition-all duration-300 ${transparentNav ? 'bg-cream' : 'bg-navy'} ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block w-6 h-0.5 transition-all duration-300 ${transparentNav ? 'bg-cream' : 'bg-navy'} ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-6 h-0.5 transition-all duration-300 ${transparentNav ? 'bg-cream' : 'bg-navy'} ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       <div className={`md:hidden overflow-hidden transition-all duration-300 ${mobileOpen ? 'max-h-80' : 'max-h-0'}`}>
-        <div className="px-6 pb-6 pt-2 space-y-1 bg-cream border-t border-sand">
+        <div className={`px-6 pb-6 pt-2 space-y-1 border-t ${transparentNav ? 'bg-navy/90 border-white/10' : 'bg-cream border-sand'}`}>
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -79,7 +123,9 @@ export default function Navigation() {
                   block px-4 py-3 rounded-lg text-sm font-medium tracking-wide transition-all duration-200
                   ${isActive
                     ? 'bg-navy text-cream'
-                    : 'text-navy-muted hover:bg-sand/50 hover:text-navy'
+                    : transparentNav
+                      ? 'text-cream/90 hover:bg-cream/10 hover:text-cream'
+                      : 'text-navy-muted hover:bg-sand/50 hover:text-navy'
                   }
                 `}
               >

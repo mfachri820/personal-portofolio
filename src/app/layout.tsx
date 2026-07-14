@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import ScrollRestorationFix from "@/components/ScrollRestorationFix";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-cream text-navy">
         <div className="flex-grow">{children}</div>
+        <ScrollRestorationFix />
         <Footer />
       </body>
     </html>

@@ -9,92 +9,114 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 export default function Home() {
-  // refs for each parallax layer (back → front)
-  const layer1Ref = useRef<HTMLDivElement>(null); // slowest
-  const layer2Ref = useRef<HTMLDivElement>(null);
-  const layer3Ref = useRef<HTMLDivElement>(null);
-  const layer4Ref = useRef<HTMLDivElement>(null); // fastest
+  // refs for parallax hero images
+  const heroLowerRef = useRef<HTMLDivElement>(null); // background / sky
+  const heroMiddleRef = useRef<HTMLDivElement>(null); // mid layer / mountain
+  const heroUpperRef = useRef<HTMLDivElement>(null); // foreground / clouds
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const layers = [
-      { ref: layer1Ref.current, y: '-20%' },
-      { ref: layer2Ref.current, y: '-50%' },
-      { ref: layer3Ref.current, y: '-80%' },
-      { ref: layer4Ref.current, y: '-120%' },
-    ];
+    const parallaxConfig = {
+      trigger: '#hero-section',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+      ease: 'none',
+    } as const;
 
-    layers.forEach(({ ref, y }) => {
-      if (!ref) return;
-      gsap.to(ref, {
-        y,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '#hero-section',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
-    });
+    // The sky should feel distant and the mountain should carry most of the motion.
+    if (heroLowerRef.current) {
+      gsap.fromTo(
+        heroLowerRef.current,
+        { yPercent: 20, scale: 1.1   },
+        {
+          yPercent: -30,
+          scale: 1.15,
+          scrollTrigger: parallaxConfig,
+        }
+      );
+    }
+
+    if (heroMiddleRef.current) {
+      gsap.fromTo(
+        heroMiddleRef.current,
+        { yPercent: 10, scale: 1.05 },
+        {
+          yPercent: -20,
+          scale: 1.11,
+          scrollTrigger: parallaxConfig,
+        }
+      );
+    }
+
+    if (heroUpperRef.current) {
+      gsap.fromTo(
+        heroUpperRef.current,
+        { yPercent: 0, scale: 1.03 },
+        {
+          yPercent: -15,
+          scale: 1.07,
+          scrollTrigger: parallaxConfig,
+        }
+      );
+    }
 
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   return (
     <GSAPAnimationWrapper>
-      <div className="bg-cream">
+      <div className="overflow-x-clip bg-cream">
         <Navigation />
 
         {/* ── Hero Section ── */}
-        <section id="hero-section" className="relative overflow-hidden h-screen">
-          {/* ── Layer 1 (slowest) – large ring outlines ── */}
-          <div ref={layer1Ref} className="absolute inset-0" aria-hidden="true">
-            <div className="absolute -top-20 -right-20 w-[1000px] h-[1000px] rounded-full border-[4px] border-navy/10" />
-            <div className="absolute -bottom-10 -left-10 w-[700px] h-[700px] rounded-full border-[3px] border-gold/15" />
+         <section id="hero-section" className="relative overflow-clip min-h-[130vh] -mt-20 pt-20">
+          {/* ── Hero Image - Lower (Foremost) ── */}
+          <div className="absolute inset-0 z-40 overflow-hidden [contain:paint]">
+            <div ref={heroLowerRef} className="absolute inset-0">
+              <Image
+                src="/images/hero/lower.webp"
+                alt="Hero background"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-cream to-75%" />
           </div>
 
-          {/* ── Layer 2 – mid-ground blobs & ring ── */}
-          <div ref={layer2Ref} className="absolute inset-0" aria-hidden="true">
-            {/* large navy blob top-left */}
-            <div className="absolute -top-20 -left-20 w-[600px] h-[600px] bg-navy/15 rounded-full blur-[60px]" />
-            {/* gold ring mid-right */}
-            <div className="absolute top-1/4 right-[8%] w-[280px] h-[280px] rounded-full border-[6px] border-gold/40 rotate-12" />
-            {/* sand pill shape */}
-            <div className="absolute bottom-[15%] left-[10%] w-[400px] h-[180px] bg-sand/50 rounded-[90px] blur-[30px] -rotate-6" />
+          {/* ── Hero Image - Middle (mountain) ── */}
+          <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden [contain:paint]">
+            <div ref={heroMiddleRef} className="absolute inset-0">
+              <Image
+                src="/images/hero/middle.webp"
+                alt="Hero mountain"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
           </div>
 
-          {/* ── Layer 3 – foreground circles & lines ── */}
-          <div ref={layer3Ref} className="absolute inset-0" aria-hidden="true">
-            {/* navy circle */}
-            <div className="absolute top-[15%] right-[22%] w-[200px] h-[200px] bg-navy/25 rounded-full blur-xl" />
-            {/* gold circle */}
-            <div className="absolute bottom-[20%] right-[12%] w-[160px] h-[160px] bg-gold/40 rounded-full blur-lg" />
-            {/* small navy dot */}
-            <div className="absolute top-[55%] left-[6%] w-[100px] h-[100px] bg-navy/30 rounded-full blur-md" />
-            {/* diagonal line accent */}
-            <div className="absolute top-[38%] right-[4%] w-[240px] h-[4px] bg-gold/35 rotate-[30deg] rounded-full" />
-            <div className="absolute top-[43%] right-[2%] w-[180px] h-[3px] bg-navy/20 rotate-[30deg] rounded-full" />
-          </div>
-
-          {/* ── Layer 4 (fastest) – sharp detail shapes ── */}
-          <div ref={layer4Ref} className="absolute inset-0" aria-hidden="true">
-            {/* gold dot cluster */}
-            <div className="absolute top-[18%] left-[28%] w-[36px] h-[36px] bg-gold/70 rounded-full" />
-            <div className="absolute top-[21%] left-[32%] w-[20px] h-[20px] bg-gold/50 rounded-full" />
-            {/* navy square (rotated) */}
-            <div className="absolute bottom-[28%] left-[38%] w-[56px] h-[56px] bg-navy/30 rounded-xl rotate-45" />
-            {/* gold diamond */}
-            <div className="absolute top-[52%] right-[28%] w-[64px] h-[64px] bg-gold/35 rounded-tl-[32px] rounded-br-[32px] rotate-12" />
-            {/* small ring */}
-            <div className="absolute top-[68%] right-[38%] w-[72px] h-[72px] rounded-full border-[3px] border-navy/25" />
-            {/* sand dot */}
-            <div className="absolute top-[33%] left-[58%] w-[28px] h-[28px] bg-sand/70 rounded-full" />
+          {/* ── Hero Image - Upper (Sky) ── */}
+          <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden [contain:paint]">
+            <div ref={heroUpperRef} className="absolute inset-0">
+              <Image
+                src="/images/hero/upper.webp"
+                alt="Hero sky"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
           </div>
 
           {/* ── Hero content ── */}
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-20 lg:pt-36 lg:pb-28">
+          <div className="relative max-w-7xl mx-auto px-6 z-30 lg:px-12 lg:pt-36 lg:pb-12">
             <div className="max-w-3xl">
               <p className="text-sm uppercase tracking-[0.3em] text-gold font-semibold mb-6">
                 AI & Full-Stack Developer
@@ -130,7 +152,7 @@ export default function Home() {
         </section>
 
         {/* ── Featured Projects ── */}
-        <section className="py-20 lg:py-28">
+        <section className="-mt-[30vh] py-5 lg:py-10">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 gap-4">
               <div>
