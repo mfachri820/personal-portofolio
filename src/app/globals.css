@@ -6,16 +6,16 @@
   --color-cream-dark: #F0E8DC;
   --color-sand:       #E6DDD0;
   --color-sand-dark:  #D4C8B8;
-  --color-navy:       #1B2A4A;
-  --color-navy-light: #2A3F6F;
-  --color-navy-muted: #3D5289;
+  --color-navy:       #2A3A55;
+  --color-navy-light: #3B5278;
+  --color-navy-muted: #5A7094;
   --color-gold:       #C5A254;
   --color-gold-light: #D4B96E;
   --color-warm-gray:  #6B625A;
   --color-warm-gray-light: #8A827A;
 
   --color-background: #FAF6F1;
-  --color-foreground: #1B2A4A;
+  --color-foreground: #2A3A55;
 
   --font-sans:  var(--font-dm-sans);
   --font-serif: var(--font-playfair);
@@ -127,5 +127,5 @@ body {
 }
 .card-hover:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px -12px rgba(27, 42, 74, 0.12);
+  box-shadow: 0 20px 40px -12px rgba(42, 58, 85, 0.12);
 }

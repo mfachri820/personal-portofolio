@@ -302,18 +302,19 @@ export default function Journey() {
       <Navigation />
 
       {/* ════════════ HERO ════════════ */}
-      <section className="relative journey-hero min-h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="relative journey-hero min-h-[60vh] flex items-center justify-center overflow-x-clip">
         {/* Background Image - Extended container for full visible image */}
-        <div className="absolute -inset-y-16 inset-x-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute -inset-y-16 inset-x-0 overflow-hidden pointer-events-none">
           <Image
             src="/images/journey/Pohon.webp"
             alt="Journey hero background"
             fill
             unoptimized
-            className="object-cover object-center scale-125"
+            className="object-cover object-center scale-100"
             priority
           />
         </div>
+        
         {/* Large decorative elements */}
         <div className="absolute top-16 right-[10%] w-24 h-24 rounded-full border-2 border-gold/20 animate-float" />
         <div className="absolute bottom-24 left-[8%] w-16 h-16 bg-navy/5 rounded-2xl rotate-12 animate-float-slow" />
@@ -333,7 +334,46 @@ export default function Journey() {
           </p>
         </div>
       </section>
+        {/* Wave distortion filter definition (invisible) */}
+        <svg width="0" height="0" className="absolute">
+          <defs>
+            <filter id="water-ripple">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.01 0.04"
+                numOctaves="2"
+                seed="3"
+                result="turbulence"
+              >
+                <animate
+                  attributeName="baseFrequency"
+                  dur="6s"
+                  values="0.01 0.04;0.015 0.05;0.01 0.04"
+                  repeatCount="indefinite"
+                />
+              </feTurbulence>
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="turbulence"
+                scale="18"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+          </defs>
+        </svg>
 
+        <div className="relative mt-14 h-40 md:h-56 z-0 pointer-events-none overflow-x-clip opacity-60 [mask-image:linear-gradient(to_bottom,black_0%,transparent_55%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,transparent_55%)]">
+          <div className="absolute inset-0 inset-x-0 [transform:scaleY(-1)_scaleX(-1)] [filter:url(#water-ripple)]">
+            <Image
+              src="/images/journey/Pohon.webp"
+              alt=""
+              fill
+              unoptimized
+              className="object-cover object-bottom scale-100"
+            />
+          </div>
+        </div>
       {/* ════════════ PROFESSIONAL EXPERIENCE ════════════ */}
       <section className="py-16 lg:py-24 relative">
         {/* Large decorative elements */}
