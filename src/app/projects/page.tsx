@@ -35,8 +35,8 @@ export default function Projects() {
     if (projectsUpperRef.current) {
       gsap.fromTo(
         projectsUpperRef.current,
-        { yPercent: 20, scale: 1.12 },
-        { yPercent: -5, scale: 1.12, scrollTrigger: parallaxConfig }
+        { yPercent: 0, scale: 1.15 },
+        { yPercent: -0, scale: 1.15, scrollTrigger: parallaxConfig }
       );
     }
 

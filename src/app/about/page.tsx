@@ -43,7 +43,7 @@ export default function About() {
       gsap.fromTo(
         aboutUpperRef.current,
         { yPercent: 10, scale: 1.05},
-        { yPercent: -15, scale: 1.05, scrollTrigger: parallaxConfig }
+        { yPercent: -10, scale: 1.05, scrollTrigger: parallaxConfig }
       );
     }
 

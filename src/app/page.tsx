@@ -29,7 +29,7 @@ export default function Home() {
     if (heroLowerRef.current) {
       gsap.fromTo(
         heroLowerRef.current,
-        { yPercent: 20, scale: 1.1   },
+        { yPercent: 40, scale: 1.1   },
         {
           yPercent: -30,
           scale: 1.15,
@@ -41,7 +41,7 @@ export default function Home() {
     if (heroMiddleRef.current) {
       gsap.fromTo(
         heroMiddleRef.current,
-        { yPercent: 10, scale: 1.05 },
+        { yPercent: 20, scale: 1.05 },
         {
           yPercent: -20,
           scale: 1.11,
