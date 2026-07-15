@@ -60,16 +60,16 @@ function TimelineCard({
   return (
     <div className="relative group">
       {/* Dot */}
-      <div className="timeline-dot absolute left-1/2 -translate-x-1/2 z-10">
+      <div className="timeline-dot absolute left-4 lg:left-1/2 -translate-x-1/2 z-10">
         <div
           className={`w-4 h-4 rounded-full border-[3px] ${accentColors.dotBorder} bg-cream ${accentColors.dotHover} group-hover:scale-150 transition-all duration-300 shadow-md`}
         />
       </div>
 
       {/* Card */}
-      <div className={`w-full flex ${isEven ? 'justify-start' : 'justify-end'}`}>
+      <div className={`w-full flex justify-end ${isEven ? 'lg:justify-start' : ''}`}>
         <div
-          className={`w-[calc(50%-2.5rem)] timeline-card bg-white border border-sand/60 rounded-2xl p-6 lg:p-8 card-hover`}
+          className={`w-full ml-8 lg:ml-0 lg:w-[calc(50%-2.5rem)] timeline-card bg-white border border-sand/60 rounded-2xl p-6 lg:p-8 card-hover`}
         >
           {/* Header row */}
           <div className="flex items-center gap-3 mb-4">
@@ -137,14 +137,14 @@ function OrgTimelineCard({ item, index }: { item: TimelineEntry; index: number }
   return (
     <div className="relative group">
       {/* Dot */}
-      <div className="timeline-dot absolute left-1/2 -translate-x-1/2 z-10">
+      <div className="timeline-dot absolute left-4 lg:left-1/2 -translate-x-1/2 z-10">
         <div className="w-4 h-4 rounded-full border-[3px] border-gold/60 bg-navy group-hover:bg-gold group-hover:scale-150 transition-all duration-300 shadow-md" />
       </div>
 
       {/* Card */}
-      <div className={`w-full flex ${isEven ? 'justify-start' : 'justify-end'}`}>
+      <div className={`w-full flex justify-end ${isEven ? 'lg:justify-start' : ''}`}>
         <div
-          className={`w-[calc(50%-2.5rem)] timeline-card bg-navy-light/40 border border-cream/10 rounded-2xl p-6 lg:p-8 card-hover`}
+          className={`w-full ml-8 lg:ml-0 lg:w-[calc(50%-2.5rem)] timeline-card bg-navy-light/40 border border-cream/10 rounded-2xl p-6 lg:p-8 card-hover`}
         >
           <div className="flex items-center gap-3 mb-4">
             <span className="w-8 h-8 rounded-lg bg-cream/10 flex items-center justify-center shrink-0">
@@ -210,13 +210,6 @@ export default function Journey() {
     if (!pageRef.current) return;
 
     const ctx = gsap.context(() => {
-      // ── Hero entrance ──
-      gsap.fromTo(
-        '.journey-hero',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
-      );
-
       // ── Section headings ──
       gsap.utils.toArray<HTMLElement>('.section-heading').forEach((el) => {
         gsap.fromTo(el,
@@ -347,7 +340,7 @@ export default function Journey() {
               >
                 <animate
                   attributeName="baseFrequency"
-                  dur="6s"
+                  dur="12s"
                   values="0.01 0.04;0.015 0.05;0.01 0.04"
                   repeatCount="indefinite"
                 />
@@ -363,7 +356,7 @@ export default function Journey() {
           </defs>
         </svg>
 
-        <div className="relative mt-14 h-40 md:h-56 z-0 pointer-events-none overflow-x-clip opacity-60 [mask-image:linear-gradient(to_bottom,black_0%,transparent_55%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,transparent_55%)]">
+        <div className="relative mt-14 h-40 md:h-56 z-0 pointer-events-none overflow-x-clip opacity-100 [mask-image:linear-gradient(to_bottom,black_0%,transparent_55%)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,transparent_55%)]">
           <div className="absolute inset-0 inset-x-0 [transform:scaleY(-1)_scaleX(-1)] [filter:url(#water-ripple)]">
             <Image
               src="/images/journey/Pohon.webp"
@@ -392,7 +385,7 @@ export default function Journey() {
           </div>
 
           <div className="relative">
-            <div className="timeline-line absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-gold/30" />
+            <div className="timeline-line absolute left-4 lg:left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-gold/30" />
             <div className="space-y-16">
               {professionalExperience.map((item, index) => (
                 <TimelineCard key={item.id} item={item} index={index} variant="technical" />
@@ -425,7 +418,7 @@ export default function Journey() {
           </div>
 
           <div className="relative">
-            <div className="timeline-line absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-cream/15" />
+            <div className="timeline-line absolute left-4 lg:left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-cream/15" />
             <div className="space-y-16">
               {organizations.map((item, index) => (
                 <OrgTimelineCard key={item.id} item={item} index={index} />
@@ -453,6 +446,18 @@ export default function Journey() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {education.map((item) => (
               <div key={item.id} className="edu-card bg-white border border-sand/60 rounded-2xl p-8 card-hover">
+                {item.image && (
+                  <div className="relative w-full aspect-video rounded-xl overflow-hidden mb-6 bg-sand/40">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      unoptimized
+                      className="object-cover object-center"
+                    />
+                  </div>
+                )}
+
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center">
                     <svg className="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">

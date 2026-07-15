@@ -4,8 +4,44 @@ import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { GSAPAnimationWrapper } from '@/components/GSAPAnimationWrapper';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Projects() {
+  const projectsLowerRef = useRef<HTMLDivElement>(null);
+  const projectsUpperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const parallaxConfig = {
+      trigger: '#projects-hero-section',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+      ease: 'none',
+    } as const;
+
+    if (projectsLowerRef.current) {
+      gsap.fromTo(
+        projectsLowerRef.current,
+        { yPercent: 40, scale: 1.1 },
+        { yPercent: -20, scale: 1.1, scrollTrigger: parallaxConfig }
+      );
+    }
+    if (projectsUpperRef.current) {
+      gsap.fromTo(
+        projectsUpperRef.current,
+        { yPercent: 20, scale: 1.12 },
+        { yPercent: -5, scale: 1.12, scrollTrigger: parallaxConfig }
+      );
+    }
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
   const projects = [
     {
       id: 1,
@@ -105,26 +141,58 @@ export default function Projects() {
         <Navigation />
 
         {/* ── Hero ── */}
-        <section className="relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sand/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-16 lg:pt-36 lg:pb-24">
+        <section id="projects-hero-section" className="relative overflow-hidden min-h-[130vh] -mt-20 pt-20">
+          {/* ── Lower (background) ── */}
+          <div className="absolute inset-0 z-40 overflow-hidden [contain:paint] pointer-events-none">
+            <div ref={projectsLowerRef} className="absolute inset-0">
+              <Image
+                src="/images/projects/lower.webp"
+                alt="Projects hero background"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-cream to-75% pointer-events-none" />
+          </div>
+
+          {/* ── Upper (foreground) ── */}
+          <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden [contain:paint]">
+            <div ref={projectsUpperRef} className="absolute inset-0">
+              <Image
+                src="/images/projects/upper.webp"
+                alt="Projects hero foreground"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* ── Hero content ── */}
+          <div className="relative max-w-7xl mx-auto px-6 z-31 lg:px-12 lg:pt-48 lg:pb-12 text-center flex flex-col items-center">
             <div className="flex items-center gap-4 mb-3">
               <span className="w-24 h-[2px] bg-gold" />
-            </div>  
-            <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl font-bold text-navy leading-tight mb-6">
+            </div>
+            <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl font-bold text-white leading-tight mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
               Selected
               <br />
-              <span className="text-navy-muted italic">works.</span>
+              <span className="italic">works.</span>
             </h1>
-            <p className="text-lg text-warm-gray max-w-2xl leading-relaxed">
-              A selection of projects spanning AI research, machine learning, frontend development, 
-              and data science.
-            </p>
+            <div className="max-w-2xl relative">
+              <div className="absolute -inset-x-4 -inset-y-3 bg-navy/30 rounded-xl -z-10" />
+              <p className="text-lg text-white leading-relaxed drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
+                A selection of projects spanning AI research, machine learning, frontend development, 
+                and data science.
+              </p>
+            </div>
           </div>
         </section>
 
         {/* ── Projects Grid ── */}
-        <section className="py-16 lg:py-24">
+        <section className="-mt-64 py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {projects.map((project) => (

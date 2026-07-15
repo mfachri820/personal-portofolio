@@ -3,8 +3,52 @@
 import Navigation from '@/components/Navigation';
 import Image from 'next/image';
 import { GSAPAnimationWrapper } from '@/components/GSAPAnimationWrapper';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function About() {
+  const aboutLowerRef = useRef<HTMLDivElement>(null);
+  const aboutMiddleRef = useRef<HTMLDivElement>(null);
+  const aboutUpperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const parallaxConfig = {
+      trigger: '#about-hero-section',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: true,
+      ease: 'none',
+    } as const;
+
+    if (aboutLowerRef.current) {
+      gsap.fromTo(
+        aboutLowerRef.current,
+        { yPercent: 40, scale: 1.05 },
+        { yPercent: -30, scale: 1.05, scrollTrigger: parallaxConfig }
+      );
+    }
+    if (aboutMiddleRef.current) {
+      gsap.fromTo(
+        aboutMiddleRef.current,
+        { yPercent: 20, scale: 1.05},
+        { yPercent: -20, scale: 1.05, scrollTrigger: parallaxConfig }
+      );
+    }
+    if (aboutUpperRef.current) {
+      gsap.fromTo(
+        aboutUpperRef.current,
+        { yPercent: 10, scale: 1.05},
+        { yPercent: -15, scale: 1.05, scrollTrigger: parallaxConfig }
+      );
+    }
+
+    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+  }, []);
   const skills = [
     {
       title: 'AI & Data Science',
@@ -33,26 +77,71 @@ export default function About() {
         <Navigation />
 
         {/* ── Hero ── */}
-        <section className="relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-sand/40 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-24 pb-16 lg:pt-36 lg:pb-24">
+        <section id="about-hero-section" className="relative overflow-hidden min-h-[130vh] -mt-20 pt-20">
+          {/* ── Lower (background) ── */}
+          <div className="absolute inset-0 z-40 overflow-hidden [contain:paint] pointer-events-none">
+            <div ref={aboutLowerRef} className="absolute inset-0">
+              <Image
+                src="/images/about/lower-about.webp"
+                alt="About hero background"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent from-50% to-cream to-75% pointer-events-none" />
+          </div>
+
+          {/* ── Middle ── */}
+          <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden [contain:paint]">
+            <div ref={aboutMiddleRef} className="absolute inset-0">
+              <Image
+                src="/images/about/middle-about.webp"
+                alt="About hero middle"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* ── Upper (foreground) ── */}
+          <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden [contain:paint]">
+            <div ref={aboutUpperRef} className="absolute inset-0">
+              <Image
+                src="/images/about/upper-about.webp"
+                alt="About hero foreground"
+                fill
+                unoptimized
+                className="object-cover object-center"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* ── Hero content ── */}
+          <div className="relative max-w-7xl mx-auto px-6 z-31 lg:px-12 lg:pt-48 lg:pb-12 text-center flex flex-col items-center">
             <div className="flex items-center gap-4 mb-3">
               <span className="w-24 h-[2px] bg-gold" />
             </div>
-            <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl font-bold text-navy leading-tight mb-6">
-              The person behind
-              <br />
-              <span className="text-navy-muted italic">the code.</span>
+            <h1 className="font-[family-name:var(--font-playfair)] text-5xl md:text-7xl font-bold text-white leading-tight mb-6 drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
+              The person behind 
+              <span className="italic"> the code.</span>
             </h1>
-            <p className="text-lg text-warm-gray max-w-2xl leading-relaxed">
-              I&apos;m Muhammad Fachri — a third-year Informatics Engineering student at Universitas Padjadjaran 
-              with a passion for AI, data-driven solutions, and building things that matter.
-            </p>
+            <div className="max-w-2xl relative">
+              <div className="absolute -inset-x-4 -inset-y-3 bg-navy/30 rounded-xl -z-10" />
+              <p className="text-lg text-white leading-relaxed drop-shadow-[0_2px_16px_rgba(0,0,0,0.7)]">
+                I&apos;m Muhammad Fachri — a third-year Informatics Engineering student at Universitas Padjadjaran 
+                with a passion for AI and data-driven solutions.
+              </p>
+            </div>
           </div>
         </section>
 
         {/* ── Story + Photo ── */}
-        <section className="py-16 lg:py-24">
+        <section className="-mt-64 py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div className="relative">
@@ -70,10 +159,10 @@ export default function About() {
               </div>
 
               <div>
-                <h2 className="font-[family-name:var(--font-playfair)] text-3xl md:text-4xl font-bold text-navy mb-6">
+                <h2 className="font-[family-name:var(--font-playfair)] text-4xl md:text-4xl font-bold text-navy mb-6">
                   My Journey
                 </h2>
-                <div className="space-y-4 text-warm-gray leading-relaxed">
+                <div className="space-y-4 text-lg text-warm-gray leading-relaxed">
                   <p>
                     I&apos;m a third-year Informatics Engineering student at Universitas Padjadjaran, 
                     specializing in <strong>AI and Data Science</strong>. My passion lies at the intersection of 
@@ -111,10 +200,10 @@ export default function About() {
             <div className="space-y-0">
               {timeline.map((item, i) => (
                 <div key={i} className="flex gap-8 items-start border-t border-cream/10 py-8 first:border-t-0">
-                  <span className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-gold shrink-0 w-20">
+                  <span className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-gold shrink-0 w-20">
                     {item.year}
                   </span>
-                  <p className="text-cream/70 leading-relaxed">{item.event}</p>
+                  <p className="text-cream/70 text-lg leading-relaxed">{item.event}</p>
                 </div>
               ))}
             </div>
@@ -138,12 +227,12 @@ export default function About() {
                   key={category.title}
                   className="bg-white border border-sand/60 rounded-2xl p-8 card-hover"
                 >
-                  <h3 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-navy mb-6">
+                  <h3 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-navy mb-6">
                     {category.title}
                   </h3>
                   <ul className="space-y-3">
                     {category.items.map((skill) => (
-                      <li key={skill} className="flex items-center gap-3 text-warm-gray text-sm">
+                      <li key={skill} className="flex items-center gap-3 text-warm-gray text-lg">
                         <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
                         {skill}
                       </li>

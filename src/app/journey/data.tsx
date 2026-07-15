@@ -21,6 +21,7 @@ export interface EducationItem {
   date: string;
   description?: string;
   highlights?: string[];
+  image?: string;
 }
 
 export interface CertificationItem {
@@ -41,7 +42,7 @@ export const professionalExperience: TimelineEntry[] = [
     date: 'Apr 2026',
     duration: '4 months',
     description: [
-      <>Building responsive web interfaces for TEDxPadjadjaran, serving <strong>500+ attendees</strong> at Universitas Padjadjaran\'s flagship TEDx event.</>,
+      <>Building responsive web interfaces for TEDxPadjadjaran, serving <strong>500+ attendees</strong> at Universitas Padjadjaran&apos;s flagship TEDx event.</>,
       <>Developing reusable React components that reduced UI inconsistencies across <strong>5+ event pages</strong>.</>,
       <>Collaborating with a cross-functional team of <strong>6 designers and developers</strong> to deliver on tight deadlines.</>,
     ],
@@ -71,7 +72,7 @@ export const professionalExperience: TimelineEntry[] = [
     date: 'Feb 2026',
     duration: '6 months',
     description: [
-      <>Built "Fingo," a financial impulsiveness detector that achieved <strong>99% model accuracy</strong> with <strong>sub-500ms</strong> inference time.</>,
+      <>Built &quot;Fingo,&quot; a financial impulsiveness detector that achieved <strong>99% model accuracy</strong> with <strong>sub-500ms</strong> inference time.</>,
       <>Developed an NLP model using fine-tuned BERT, reaching <strong>85% accuracy</strong> on a custom organic dataset.</>,
       <>Deployed end-to-end ML pipelines on cloud infrastructure, completing the <strong>top-tier DBS AI Engineer track</strong>.</>,
     ],
@@ -86,7 +87,7 @@ export const professionalExperience: TimelineEntry[] = [
     date: 'Nov 2025',
     duration: '8 months',
     description: [
-      <>Leading a <strong>team of 8</strong> to manage Unpad International Office\'s digital presence across <strong>3 platforms</strong>.</>,
+      <>Leading a <strong>team of 8</strong> to manage Unpad International Office&apos;s digital presence across <strong>3 platforms</strong>.</>,
       <>Increased social media engagement by <strong>35%</strong> through data-driven content strategies and A/B testing.</>,
       <>Overseeing website updates and content pipelines serving <strong>1,000+ monthly visitors</strong>.</>,
     ],
@@ -101,7 +102,7 @@ export const professionalExperience: TimelineEntry[] = [
     date: 'Apr 2025',
     duration: '8 months',
     description: [
-      <>Designed and developed <strong>10+ responsive web pages</strong> using Elementor and JavaScript, boosting Unpad IO\'s online traffic by <strong>25%</strong>.</>,
+      <>Designed and developed <strong>10+ responsive web pages</strong> using Elementor and JavaScript, boosting Unpad IO&apos;s online traffic by <strong>25%</strong>.</>,
       <>Created <strong>60+ cross-platform content pieces</strong>, growing follower count by <strong>500+</strong> across Instagram and LinkedIn.</>,
       <>Supported <strong>3 international events</strong>, coordinating logistics for <strong>200+ international students</strong> and partners.</>,
     ],
@@ -288,6 +289,7 @@ export const education: EducationItem[] = [
     date: 'Jun 2026 — Jul 2026',
     description: 'Selected for the prestigious NUS Young Fellows Programme (YFP), engaging in cutting-edge AI research and collaborating with peers across Asia.',
     highlights: ['Artificial Intelligence', 'Research', 'International'],
+    image: '/images/journey/nus-fellowship.png',
   },
   {
     id: 2,
