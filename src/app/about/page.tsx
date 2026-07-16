@@ -77,7 +77,7 @@ export default function About() {
         <Navigation />
 
         {/* ── Hero ── */}
-        <section id="about-hero-section" className="relative overflow-hidden min-h-[130vh] -mt-20 pt-20">
+        <section id="about-hero-section" className="relative overflow-hidden min-h-[130vh] -mt-24 pt-20">
           {/* ── Lower (background) ── */}
           <div className="absolute inset-0 z-40 overflow-hidden [contain:paint] pointer-events-none">
             <div ref={aboutLowerRef} className="absolute inset-0">

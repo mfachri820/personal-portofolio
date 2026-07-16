@@ -71,7 +71,7 @@ export default function Home() {
         <Navigation />
 
         {/* ── Hero Section ── */}
-         <section id="hero-section" className="relative overflow-clip min-h-[130vh] -mt-20 pt-20">
+         <section id="hero-section" className="relative overflow-clip min-h-[130vh] -mt-24 pt-20">
           {/* ── Hero Image - Lower (Foremost) ── */}
           <div className="absolute inset-0 z-40 overflow-hidden [contain:paint]  pointer-events-none">
             <div ref={heroLowerRef} className="absolute inset-0">
@@ -133,7 +133,7 @@ export default function Home() {
               <div className="flex z-31 flex-wrap gap-4">
                 <Link
                   href="/projects"
-                  className="inline-flex z-31 items-center gap-2 bg-navy text-cream px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:bg-navy-light transition-colors duration-300"
+                  className="inline-flex z-31 items-center gap-2 bg-white text-navy px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:bg-cream transition-colors duration-300"
                 >
                   View Projects
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,7 +142,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex z-31 items-center gap-2 border-2 border-navy/20 text-navy px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:border-navy/50 transition-colors duration-300"
+                  className="inline-flex z-31 items-center gap-2 border-2 border-black/30 text-white px-8 py-4 rounded-full text-sm font-medium tracking-wide bg-black/20 hover:bg-black/40 transition-colors duration-300"
                 >
                   Get in Touch
                 </Link>

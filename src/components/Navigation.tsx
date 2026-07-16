@@ -7,15 +7,14 @@ import { useEffect, useState } from 'react';
 export default function Navigation() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isHeroVisible, setIsHeroVisible] = useState(pathname === '/');
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
 
   useEffect(() => {
-    if (pathname !== '/') {
-      setIsHeroVisible(false);
-      return;
-    }
+    let heroId = 'hero-section';
+    if (pathname === '/about') heroId = 'about-hero-section';
+    else if (pathname === '/projects') heroId = 'projects-hero-section';
 
-    const heroSection = document.getElementById('hero-section');
+    const heroSection = document.getElementById(heroId);
 
     if (!heroSection) {
       setIsHeroVisible(false);
@@ -36,7 +35,7 @@ export default function Navigation() {
     return () => observer.disconnect();
   }, [pathname]);
 
-  const transparentNav = pathname === '/' && isHeroVisible;
+  const transparentNav = isHeroVisible;
 
   const links = [
     { href: '/', label: 'Home' },
@@ -72,6 +71,7 @@ export default function Navigation() {
           <div className="hidden md:flex items-center gap-1">
             {links.map((link) => {
               const isActive = pathname === link.href;
+              if (link.hideOnHero && transparentNav) return null;
               return (
                 <Link
                   key={link.href}
@@ -115,6 +115,7 @@ export default function Navigation() {
         <div className={`px-6 pb-6 pt-2 space-y-1 border-t ${transparentNav ? 'bg-navy/90 border-white/10' : 'bg-cream border-sand'}`}>
           {links.map((link) => {
             const isActive = pathname === link.href;
+            if (link.hideOnHero && transparentNav) return null;
             return (
               <Link
                 key={link.href}
