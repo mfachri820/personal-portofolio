@@ -88,6 +88,7 @@ function TimelineCard({
                 fill
                 unoptimized
                 className="object-cover object-center"
+                style={item.imagePosition ? { objectPosition: item.imagePosition } : undefined}
               />
             </div>
           )}

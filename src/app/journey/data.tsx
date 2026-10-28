@@ -12,6 +12,7 @@ export interface TimelineEntry {
   description: (string | JSX.Element)[];
   highlights?: string[];
   image?: string;
+  imagePosition?: string; // CSS object-position, e.g. for portrait photos in the 16:9 frame
 }
 
 export interface EducationItem {
@@ -46,6 +47,8 @@ export const professionalExperience: TimelineEntry[] = [
       <>Contributing to <strong>research papers</strong> through data collection, processing, and analysis.</>,
     ],
     highlights: ['Python', 'Power BI', 'Data Pipelines', 'Research'],
+    image: '/images/journey/bankindonesia.jpg',
+    imagePosition: 'center 35%',
   },
   {
     id: 1,
