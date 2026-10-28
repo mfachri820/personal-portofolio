@@ -35,6 +35,19 @@ export interface CertificationItem {
 
 export const professionalExperience: TimelineEntry[] = [
   {
+    id: 11,
+    title: 'Data Analyst Intern — PJP LR',
+    organization: 'Bank Indonesia (Central Bank of Indonesia)',
+    location: 'Jakarta, Indonesia',
+    date: 'Oct 2026',
+    duration: 'Present',
+    description: [
+      <>Developing <strong>Python data pipelines</strong> that feed <strong>Power BI dashboards</strong> supporting PJP LR reporting.</>,
+      <>Contributing to <strong>research papers</strong> through data collection, processing, and analysis.</>,
+    ],
+    highlights: ['Python', 'Power BI', 'Data Pipelines', 'Research'],
+  },
+  {
     id: 1,
     title: 'Front-End Developer',
     organization: 'TEDxPadjadjaran',
