@@ -37,7 +37,7 @@ export default function Navigation() {
 
   const transparentNav = isHeroVisible;
 
-  const links = [
+  const links: { href: string; label: string; hideOnHero?: boolean }[] = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/journey', label: 'Journey' },
