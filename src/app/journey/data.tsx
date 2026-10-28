@@ -302,7 +302,7 @@ export const education: EducationItem[] = [
     id: 1,
     title: 'Fellowship — Artificial Intelligence and Research',
     institution: 'National University of Singapore (NUS)',
-    date: 'Jun 2026 — Jul 2026',
+    date: '2026',
     description: 'Selected for the prestigious NUS Young Fellows Programme (YFP), engaging in cutting-edge AI research and collaborating with peers across Asia.',
     highlights: ['Artificial Intelligence', 'Research', 'International'],
     image: '/images/journey/nus-fellowship.png',
